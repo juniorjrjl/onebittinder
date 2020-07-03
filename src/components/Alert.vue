@@ -2,7 +2,7 @@
     <section>
         <div class="columns is-mobile -is-centered alert-use">
             <div class="column is-11">
-                <b-notification auto-close :type="`is-{alert.type}`" :active="alert.isActive">
+                <b-notification auto-close :type="`is-${alert.type}`" :active="alert.isActive">
                     {{alert.message}}
                 </b-notification>
             </div>

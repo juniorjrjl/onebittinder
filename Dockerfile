@@ -12,4 +12,6 @@ COPY package*.json ./
 
 RUN yarn install
 
+RUN yarn global add @vue/cli
+
 COPY . .
