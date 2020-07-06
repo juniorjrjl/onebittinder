@@ -6,18 +6,24 @@ export default{
     state:{
         selectionList: [],
         currentSelection: null,
-        loading: false
+        loading: false,
+        likePerformed: false
     },
 
     mutations:{
         setSelectionList(state, users){
-            state.selectionList.push(...users);
+            state.selectionList = users;
+            state.page += 1;
         },
         setLoading(state, status){
             state.loading = status
         },
         setCurrentSelection(state, position){
             state.currentSelection = state.selectionList[position];
+            state.likePerformed = false;
+        },
+        setLike(state){
+            state.likePerformed = true;
         }
     },
 
@@ -33,6 +39,11 @@ export default{
         },
         setCurrentSelection(context, position){
             context.commit("setCurrentSelection", position);
+        },
+        like({commit, state}, liked){
+            MatchService.like(state.currentSelection.id, liked).then(() =>{
+                commit("setLike");
+            });
         }
     },
 

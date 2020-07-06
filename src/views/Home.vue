@@ -26,7 +26,6 @@
         }
 
         div.empty-selection-list{
-            margin-top: 7em;
             h1 {
                 margin-top: 7em;
             }
@@ -44,21 +43,36 @@
         },
 
         computed:{
-            ...mapState("Match", ["selectionList", "loading", "currentSelection"])
+            ...mapState("Match", ["selectionList", "loading", "currentSelection", "likePerformed"])
         },
 
         watch:{
-            loading(){
-                this.setCurrentSelection(0);
+            loading(newValue){
+                if(!newValue)this.setCurrentSelection(0);
+            },
+
+            likePerformed(newValue){
+                if(newValue) this.changeCurrentSelection();
             }
         },
 
         methods:{
-            ...mapActions("Match", ["loadSelectionList", "setCurrentSelection"])
+            ...mapActions("Match", ["loadSelectionList", "setCurrentSelection"]),
+            ...mapActions(["loadGeolocation"]),
+
+            changeCurrentSelection(){
+                let indexOfCurrent = this.selectionList.indexOf(this.currentSelection);
+                if (this.selectionList.lenght > (indexOfCurrent + 1)){
+                    this.setCurrentSelection(indexOfCurrent + 1);
+                }else{
+                    this.loadSelectionList();           
+                }
+            }
         },
 
         mounted(){
             this.loadSelectionList();
+            if (this.selectionList.lenght == 0) this.loadSelectionList();
         }
     }
 </script>
