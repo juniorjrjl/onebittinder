@@ -7,11 +7,16 @@
 				</swiperSlide>
 			</swiper>
 
-			<div class="column is-mobile is-gapless is-centered action-buttons" v-if="isLoggedUser">
-				<div class="column is-12">
+			<div class="columns is-mobile is-gapless is-centered action-buttons" v-if="isLoggedUser">
+				<div class="column is-6">
 					<router-link to="/profile/edit" class="button is-pulled-left is-info">
 						<i class="fas fa-edit"></i>
 					</router-link>
+				</div>
+				<div class="column is-6">
+					<button class="button is-pulled-right is-info" @click="logout()">
+						<i class="fas fa-sign-out-alt"></i>
+					</button>
 				</div>
 			</div>
 
@@ -92,6 +97,7 @@
 	import { mapState } from 'vuex';
 	import router from '../router';
 	import UserService from '../services/user_service';
+	import store from '../store';
 	export default {
 		components: {
 			swiper,
@@ -140,6 +146,10 @@
 			},
 			backToPreviousPage(){
 				router.go(-1);
+			},
+			logout(){
+				store.dispatch('logout');
+				router.push('/login');
 			}	
 		}
 	}

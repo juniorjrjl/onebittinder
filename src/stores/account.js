@@ -7,15 +7,25 @@ export default{
             lat: 0, 
             lon: 0
         },
+        errorLoginMessage: "",
         geolocationEnabled: false
     },
 
     mutations: {
         performLogin(state, {email, password}){
+            state.errorLoginMessage = "";
             AccountService.login(email, password).then(user =>{
                 state.account = user;
                 localStorage.setItem('account', JSON.stringify(user));
+            }).catch(error =>{
+                state.errorLoginMessage = ((error.response.status === 401)) ? 
+                    "Usuário e/ou senha incorreto(s)" : 
+                    "Erro desconhecido ao logar, entre em contato com administrador";
             })
+        },
+        perfomLogout(state){
+            state.account = "";
+            localStorage.removeItem('account');
         },
         loadLocalStorageAccount(state){
             let account = localStorage.getItem('account');
@@ -47,6 +57,9 @@ export default{
         login(context, {email, password}){
             context.commit("performLogin", {email, password});
         },
+        logout(context){
+            context.commit("perfomLogout");
+        },
         loadLocalAccount(context){
             context.commit("loadLocalStorageAccount");
         },
@@ -70,6 +83,9 @@ export default{
         },
         isGeolocationEnabled(state){
             return state.geolocationEnabled;
+        },
+        errorLoginMessage(state){
+            return state.errorLoginMessage
         }
     }
 

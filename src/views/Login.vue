@@ -49,6 +49,9 @@
         computed: {
             loggedIn(){
                 return store.getters['isLoggedIn'];
+            },
+            errorLoginMessage(){
+                return store.getters['errorLoginMessage']
             }
         },
         created(){
@@ -57,6 +60,11 @@
         watch:{
             loggedIn(newValue){
                 this.checkLogin(newValue);
+            },
+            errorLoginMessage(newValue){
+                if(newValue){
+                    this.$buefy.toast.open({type: 'is-danger', message: newValue});
+                }
             }
         },
 

@@ -67,7 +67,6 @@
         },
         mounted(){
             PhotoService.load().then(photos =>{
-                console.log(photos)
                 this.photos = photos
             })   
         },
@@ -75,7 +74,6 @@
             photoToUpload(newValue){
                 if(newValue){
                     PhotoService.add(newValue).then(photo =>{
-                        console.log(this.photos);
                         this.photos.push(photo);
                     });
                 }
