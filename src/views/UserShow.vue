@@ -1,12 +1,16 @@
 <template>
 	<div>
 		<div>
-			<swiper>
+			<swiper v-if="currentUser.photos.length > 0">
 				<swiperSlide v-for="photo in currentUser.photos" :key="photo.url">
 					<img :src="photo.url" />
 				</swiperSlide>
 			</swiper>
-
+			<swiper v-else>
+				<swiperSlide>
+					<img src="@/assets/default.jpg" />
+				</swiperSlide>
+			</swiper>
 			<div class="columns is-mobile is-gapless is-centered action-buttons" v-if="isLoggedUser">
 				<div class="column is-6">
 					<router-link to="/profile/edit" class="button is-pulled-left is-info">
