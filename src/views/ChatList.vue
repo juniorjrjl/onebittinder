@@ -71,6 +71,7 @@
 	import { swiper, swiperSlide } from 'vue-awesome-swiper';
 	import MatchService from '../services/match_service';
 	import ChatService from '../services/chat_service';
+	import router from '../router';
 	export default {
 		components:{
 			swiper,
@@ -120,6 +121,9 @@
 					this[type].splice(indexToRemove, 1);
 					this.closeMenu();
 				});
+			},
+			startChat(){
+				router.push(`/chats/history/${this.currentItem.id}`)
 			}
 		}
 	}

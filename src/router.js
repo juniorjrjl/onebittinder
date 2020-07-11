@@ -6,6 +6,7 @@ import Login from './views/Login.vue';
 import SignUp from './views/SignUp.vue';
 import UserShow from './views/UserShow.vue';
 import ChatList from './views/ChatList.vue';
+import ChatHistory from './views/ChatHistory';
 import UserEdit from './views/UserEdit';
 import BlockGeolocation from './views/BlockGeolocation';
 
@@ -50,6 +51,11 @@ const router = new Router({
             path: '/chats',
             name: 'chats',
             component: ChatList
+        },
+        {
+            path: '/chats/history/:matchId',
+            name: 'chats_history',
+            component: ChatHistory
         },
         {
             path: '/block-geolocation',

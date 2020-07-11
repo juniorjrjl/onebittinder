@@ -23,6 +23,11 @@
 				received(data){
 					this.$buefy.toast.open({type: 'is-success', message: data['message']})
 				}
+			},
+			MessageNotificationChannel: {
+				received(data){
+					this.setNewMessage(data);
+				}
 			}
 		},
 		computed: {
@@ -41,6 +46,7 @@
 		},
 		methods: {
 			...mapActions('Notification', ['alert']),
+			...mapActions('Message', ['setNewMessage']),
 			performConnectionBasedOnToken(token){
 				if(token){
 					this.$cable.subscribe({channel: 'MatchNotificationChannel', token: token});
