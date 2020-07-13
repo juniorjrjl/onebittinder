@@ -1,6 +1,6 @@
 <template>
     <div>
-        <swiper :options="swiperOptions" v-if="currentUser.photos.length > 0">
+        <swiper :options="swiperOptions" v-if="photos.length > 0">
             <swiperSlide v-for="photo in photos" :key="photo.id">
                 <i class="fas fa-check-square has-text-white default-check" v-if="photo.default"></i>
                 <img :src="photo.url" @click="openMenu(photo)">
